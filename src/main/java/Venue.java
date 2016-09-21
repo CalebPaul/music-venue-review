@@ -12,12 +12,12 @@ public class Venue {
   private int city_id;
   private int id;
 
-  public Venue(String name, String description, boolean ages, int capacity, boolean seating, int city_id) {
+  public Venue(String name, String description, int capacity, int city_id) {
     this.name = name;
     this.description = description;
-    this.ages = ages;
+    ages = false;
     this.capacity = capacity;
-    this.seating = seating;
+    seating = false;
     this.city_id = city_id;
   }
 
@@ -33,6 +33,28 @@ public class Venue {
     return ages;
   }
 
+  public void setAges(boolean ages, int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE venues SET ages = :ages WHERE id = :id";
+      con.createQuery(sql)
+         .addParameter("ages", ages)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+    this.ages = ages;
+  }
+
+  public void setSeating(boolean seating, int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE venues SET seating = :seating WHERE id = :id";
+      con.createQuery(sql)
+         .addParameter("seating", seating)
+         .addParameter("id", id)
+         .executeUpdate();
+    }
+    this.seating = seating;
+  }
+
   public int getCapacity() {
     return capacity;
   }
@@ -41,13 +63,17 @@ public class Venue {
     return seating;
   }
 
-  public int getCityId() {
+  public int getId() {
+    return id;
+  }
+
+  public int getcity_id() {
     return city_id;
   }
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO venues (name, description, ages, capacity, seating, city_id)";
+      String sql = "INSERT INTO venues (name, description, ages, capacity, seating, city_id) VALUES (:name, :description, :ages, :capacity, :seating, :city_id) RETURNING id;";
       this.id = (int) con.createQuery(sql, true)
                          .addParameter("name", this.name)
                          .addParameter("description", this.description)
@@ -88,7 +114,7 @@ public class Venue {
       this.getAges() == newVenue.getAges() &&
       this.getCapacity() == newVenue.getCapacity() &&
       this.getSeating() == newVenue.getSeating() &&
-      this.getCityId() == newVenue.getCityId();
+      this.getcity_id() == newVenue.getcity_id();
     }
   }
 
