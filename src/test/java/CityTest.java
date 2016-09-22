@@ -11,6 +11,9 @@ public class CityTest {
   private City secondCity;
   private Venue newVenue;
 
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
+
   @Before
   public void initialize() {
     DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/venue_review_test", null, null);
@@ -44,7 +47,7 @@ public class CityTest {
   }
 
   @Test
-  public void getVenues_retrievesAllVenuesFromDB_VenuesList() {
+  public void getVenues_retrievesAllVenuesFromDB_venuesList() {
     firstCity.save();
     Venue firstVenue = new Venue("Roseland", "Place 1", 1500, firstCity.getId());
     firstVenue.save();
@@ -78,16 +81,6 @@ public class CityTest {
   public void equals_returnsTrueIfNamesAreTheSame_true() {
     City testCity = new City("Portland");
     assertTrue(firstCity.equals(testCity));
-  }
-
-  @After
-  public void tearDown() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteVenuesQuery = "DELETE FROM venues *;";
-      String deleteCitiesQuery = "DELETE FROM cities *;";
-      con.createQuery(deleteVenuesQuery).executeUpdate();
-      con.createQuery(deleteCitiesQuery).executeUpdate();
-    }
   }
 
 }

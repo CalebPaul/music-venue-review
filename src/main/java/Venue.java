@@ -73,13 +73,14 @@ public class Venue {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO venues (name, description, ages, capacity, seating, city_id) VALUES (:name, :description, :ages, :capacity, :seating, :city_id) RETURNING id;";
+      String sql = "INSERT INTO venues (name, description, ages, capacity, seating, city_id) VALUES (:name, :description, :ages, :capacity, :seating, :city_id)";
       this.id = (int) con.createQuery(sql, true)
                          .addParameter("name", this.name)
                          .addParameter("description", this.description)
                          .addParameter("ages", this.ages)
                          .addParameter("capacity", this.capacity)
                          .addParameter("seating", this.seating)
+                         .addParameter("city_id", this.city_id)
                          .executeUpdate()
                          .getKey();
     }
@@ -87,7 +88,7 @@ public class Venue {
 
   public static List<Venue> all() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT id, name, description, ages, capacity, seating, city_id";
+      String sql = "SELECT id, name, description, ages, capacity, seating, city_id FROM venues";
         return con.createQuery(sql)
                   .executeAndFetch(Venue.class);
     }

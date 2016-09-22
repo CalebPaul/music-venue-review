@@ -9,6 +9,8 @@ public class VenueTest {
   private Venue firstVenue;
   private Venue secondVenue;
 
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
   @Before
   public void initialize() {
@@ -98,10 +100,10 @@ public class VenueTest {
   }
 
   @Test
-  public void find_returnVenueWithTheSameId_Venue() {
+  public void find_returnVenueWithTheSameId_secondVenue() {
     firstVenue.save();
     secondVenue.save();
-    assertEquals(City.find(secondVenue.getId()), secondVenue);
+    assertEquals(Venue.find(secondVenue.getId()), secondVenue);
   }
 
   @Test
@@ -109,4 +111,5 @@ public class VenueTest {
     Venue testVenue = new Venue("Roseland", "Place 1", 1500, 1);
     assertTrue(firstVenue.equals(testVenue));
   }
+
 }
