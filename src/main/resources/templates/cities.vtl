@@ -1,0 +1,11 @@
+<h1>All Cities</h1>
+
+<ul>
+#foreach($city in $cities)
+  <li><a href="/cities/$city.getId()">$city.getName()</a></li>
+#end
+</ul>
+
+
+<a href="/cities/new">Add new City</a> | 
+<a href="/">Main Page</a>

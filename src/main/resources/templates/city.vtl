@@ -1,0 +1,10 @@
+<h1>$city.getName() Venues:</h1>
+
+#foreach($venue in $city.getVenues())
+<ul>
+  <li><a href="venues/$venue.getId()"></a>$venue.getName()</li>
+</ul>
+#end
+
+<a href="/cities/$city.getId()/venues/new">Add new Venue</a> |
+<a href="/cities">All Cities</a>

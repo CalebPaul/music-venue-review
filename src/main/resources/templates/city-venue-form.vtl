@@ -1,0 +1,25 @@
+<h3>Add a New Venue</h3>
+
+<form class="form-group" action="/venues" method="post">
+  <input id="cityId" name="cityId" type=hidden value="$city.getId()">
+
+  <label for="name">Venue Name</label>
+  <input type="text" name="name" id="name">
+  <br>
+  <label for="description">Description</label>
+  <input type="text" name="description" id="description">
+  <br>
+  <label for="capacity">Capacity</label>
+  <input type="number" name="capacity" id="description">
+  <br>
+  <label for="seating">Is Reserved Seating Available?</label>
+  <p><input type="radio" name="seating" value="true"> Yes</p>
+  <p><input type="radio" name="seating" value="false"> No</p>
+  <br>
+  <label for="ages">Is the Venue Only For Those Over 21 Years of Age?</label>
+  <p><input type="radio" name="ages" value="true"> Yes</p>
+  <p><input type="radio" name="ages" value="false"> No</p>
+  <br>
+  <button type="submit" class="btn btn-success">Add Venue</button>
+
+</form>

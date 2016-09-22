@@ -1,0 +1,13 @@
+<h1>Venue List</h1>
+
+#if($venues)
+  <ul>
+    #foreach($venue in $venues)
+      <li>$venue.getName()</li>
+    #end
+  </ul>
+#else
+  <h3>No Venues</h3>
+#end
+
+<a href="/cities/$city.getId()/venues/new">Add New Venues</a>

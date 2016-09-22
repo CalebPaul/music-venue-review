@@ -1,0 +1,16 @@
+<h1>$venue.getName()</h1>
+<h3>$venue.getDescription()</h3>
+<h3>$venue.getCapacity()</h3>
+#if($venue.getAges())
+  <h3>AllAges</h3>
+#else
+  <h3>21+</h3>
+#end
+#if($venue.getseating())
+  <h3>Seated Show</h3>
+#else
+  <h3>Standing Room Only</h3>
+#end
+
+<a href="cities/:id/venues/new">Add Another Venue</a> |
+<a href="/venues">AllVenues</a>
